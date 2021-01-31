@@ -1,0 +1,13 @@
+- name: Create SSH Key for user
+  user:
+    name: "{{ local_user }}"
+    generate_ssh_key: yes
+    state: present
+  register: ssh_user
+
+- name: Authorize key with Github
+  local_action:
+    module: github_key
+    name: Access Key for {{ local_machine }}
+    token: "{{ github_ssh_admin_access_token }}"
+    pubkey: "{{ ssh_user.ssh_public_key }}"

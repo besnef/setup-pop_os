@@ -1,0 +1,27 @@
+  - name: Install Dependencies
+    apt:
+      name: 
+        - software-properties-common
+        - apt-transport-https
+      update_cache: yes
+      state: latest
+    become: yes
+
+  - name: Import Microsoft Repository Key
+    apt_key:
+      url: https://packages.microsoft.com/keys/microsoft.asc
+      state: present
+    become: yes
+
+  - name: Install VSCode Repository
+    apt_repository:
+      repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
+      state: present
+    become: yes
+
+  - name: Install VSCode
+    apt:
+      name: code
+      update_cache: yes
+      state: latest
+    become: yes

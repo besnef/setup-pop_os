@@ -1,0 +1,6 @@
+  - name: Install MComix
+    become: yes
+    apt: 
+      name: mcomix
+      state: present
+      autoclean: yes

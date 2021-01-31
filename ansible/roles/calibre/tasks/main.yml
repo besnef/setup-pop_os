@@ -1,0 +1,23 @@
+- name: Check Calibre Exists
+  stat:
+    path: "/opt/calibre"
+  register: has_calibre
+
+- name: Download Calibre
+  get_url:
+    url: https://download.calibre-ebook.com/linux-installer.sh
+    dest: "{{ local_home }}/calibre-installer.sh"
+  when: not has_calibre.stat.exists
+
+- name: Install Calibre
+  command: sh calibre-installer.sh
+  args:
+    chdir: "{{ local_home }}"
+  become: yes
+  when: not has_calibre.stat.exists
+
+- name: Remove Calibre Installer script
+  file:
+    path: "{{ local_home }}/calibre-installer.sh"
+    state: absent
+  

@@ -1,0 +1,23 @@
+
+  - name: Install zsh
+    become: yes
+    apt: 
+      name: zsh
+      state: present
+      autoclean: yes
+
+  - name: set zsh as shell for current user
+    become: yes
+    user:
+      name: "{{ local_user }}"
+      shell: /usr/bin/zsh
+
+  - name: Test if oh-my-zsh is present.
+    stat:
+      path: "{{ local_home }}/.oh-my-zsh"
+    register: ohmyzsh
+
+  - name: Install "oh-my-zsh"
+    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    when: not ohmyzsh.stat.exists
+   

@@ -19,6 +19,7 @@ install_pip_packages() {
     eval "$venv_dir/pip3 install ansible"
     eval "$venv_dir/pip3 install docker"
     eval "$venv_dir/pip3 install docker-compose"
+    eval "$venv_dir/pip3 install psutil"
 }
 
 echo "prepare ansible..."

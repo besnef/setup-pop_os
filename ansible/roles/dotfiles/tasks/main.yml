@@ -1,0 +1,5 @@
+- name: Clone dotfiles
+  git:
+    repo: "git@github.com/besnef/dotfiles.git"
+    dest: "{{ local_home }}/dotfiles"
+    update: no

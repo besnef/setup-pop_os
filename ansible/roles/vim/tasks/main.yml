@@ -1,0 +1,23 @@
+
+  - name: Install environment pacakges
+    become: yes
+    apt: 
+      name: vim
+      state: present
+      autoclean: yes
+
+  - name: Clone vundle repo
+    git:
+      repo: "https://github.com/VundleVim/Vundle.vim.git"
+      dest: "{{ local_home }}/.vim/bundle/Vundle.vim"
+      update: no
+
+  - name: Install all plugins
+    shell: vim +PluginInstall +qall 
+
+  - name: Install Powerline Fonts
+    become: yes
+    apt: 
+      name: fonts-powerline
+      state: present
+      autoclean: yes

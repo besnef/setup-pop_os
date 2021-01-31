@@ -1,0 +1,15 @@
+
+  - name: Install environment pacakges
+    become: yes
+    apt: 
+      name: 
+        - vim
+        - ssh
+        - tmux
+        - git
+        - wget
+        - curl
+        - flac
+        - unrar
+      state: present
+      autoclean: yes
