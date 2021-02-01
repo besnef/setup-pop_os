@@ -3,8 +3,10 @@
     local_user: "{{ ansible_user_id }}"
     local_home: "{{ lookup('env','HOME')  }}"
     local_machine: "{{ ansible_facts.nodename }}"
+    local_repo_dir: "{{ local_home  }}/repos"
   vars_files:
     - vars/external_vars.yml
+    - vars/gnome-extensions.yml
 
   roles:
     - {role: environment, tags: 'env'}
@@ -12,10 +14,12 @@
     - {role: github, tags: 'github'}
     - {role: zsh, tags: 'zsh'}
     - {role: vim, tags: 'vim'}
-    - {role: dconf, tags: 'dconf'}
-    - {role: gnome_tweaks, tags: 'gnome'}
+    - {role: jaredhocutt.gnome_extensions, tags: 'gnome'}
+    - {role: gnome, tags: 'gnome'}
     - {role: guake, tags: 'guake'}
     - {role: chrome, tags: 'chrome'}
+    - {role: torbrowser, tags: 'tor'}
+    - {role: deluge, tags: 'deluge'}
     - {role: vscode, tags: 'vscode'}
     - {role: calibre, tags: 'calibre'}
     - {role: mcomix, tags: 'mcomix'}

@@ -1,0 +1,9 @@
+gnome_extension_ids:
+  - 561 # desktop-scroller@brorlandi
+  - 750 #openweather-extension@jenslody.de
+  - 15  #alternate-tab@gnome-shell-extensions.gcampax.github.com
+  - 21  #workspace-indicator@gnome-shellextensions.gcampax.github.com
+  - 19  #user-theme@gnome-shell-extensions.gcampax.github.com
+  - 779  #clipboard-indicator@tudmotu.com
+  - 352  #middleclickclose@paolo.tranquilli.gmail.com
+    #mediaplayer@patapon.info

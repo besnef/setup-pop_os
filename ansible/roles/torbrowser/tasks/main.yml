@@ -1,0 +1,12 @@
+  - name: install tor browser ppa
+    apt_repository:
+      repo: ppa:micahflee/ppa
+      state: present
+    become: yes
+
+  - name: install tor browser launcher
+    apt:
+      name: torbrowser-launcher
+      update_cache: yes
+      state: latest
+    become: yes

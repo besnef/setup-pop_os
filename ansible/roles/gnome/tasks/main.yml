@@ -1,0 +1,108 @@
+- name: Install gnome-tweaks
+  become: yes
+  apt: 
+    name: gnome-tweaks
+    state: present
+    autoclean: yes
+
+- name: Configure System Monospace Font
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/monospace-font-name"
+    value: "'Liberation Mono 11'"
+    state: present
+
+- name: Set Clock Show Weekday
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/clock-show-weekday"
+    value: "true"
+    state: present
+
+- name: Set Show Battery Percentage
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+
+- name: Configure Background
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file:///usr/share/backgrounds/pop/nasa-53884.jpg'"
+    state: present
+
+- name: Set Focus Follows Mouse 
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/focus-mode"
+    value: "'sloppy'"
+    state: present
+
+- name: Set Favorite Apps
+  community.general.dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'calibre-gui.desktop', 'gnome-mahjongg.desktop', 'org.gnome.tweaks.desktop', 'deluge.desktop', 'torbrowser.desktop']"
+    state: present
+
+- name: Set OpenWeather Provider
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/openweather/weather-provider"
+    value: "'darksky.net'"
+    state: present
+
+- name: Set OpenWeather Dark Sky API Key
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/openweather/appid-fc"
+    value: "'cbc4fbaa1296c3cba2344b22841396fe'"
+    state: present
+
+- name: Set OpenWeather Number Days
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/openweather/days-forecast"
+    value: "3"
+    state: present
+
+- name: Set OpenWeather City
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/openweather/city"
+    value: "'36.05474851885812,-80.32728351427352>2493, Autumn Mist Drive, Atwood, Winston-Salem, Forsyth County, North Carolina, 27103, United States >-1'"
+    state: present
+
+- name: Enable Extensions
+  community.general.dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['desktop-scroller@brorlandi', 'openweather-extension@jenslody.de', 'alternate-tab@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'middleclickclose@paolo.tranquilli.gmail.com']"
+    state: present
+
+- name: Install packages for Zuki-Shell
+  become: yes
+  apt: 
+    name: 
+      - gtk2-engines-murrine
+      - gtk2-engines-pixbuf
+      - ninja-build
+      - meson
+      - sassc
+    state: present
+    autoclean: yes
+
+- name: Check if zuki-theme installed
+  stat:
+    path: "{{ local_home}}/.themes/Zuki-shell"
+  register: has_zuki
+
+- name: Clone zuki-themes
+  git:
+    repo: "https://github.com/lassekongo83/zuki-themes.git"
+    dest: "{{ local_repo_dir }}/zuki-themes"
+    update: no
+  when: not has_zuki.stat.exists
+
+- name: Make Zuki Theme
+  shell: 
+    cmd: meson build
+    chdir: "{{ local_repo_dir }}/zuki-themes"
+  when: not has_zuki.stat.exists
+
+- name: Install Zuki Theme
+  shell: 
+    cmd: "DESTDIR={{ local_home }}/.themes ninja -C build install && mv {{ local_home }}/.themes/usr/share/themes/* {{ local_home }}/.themes && rm -r {{ local_home }}/.themes/usr"
+    chdir: "{{ local_repo_dir }}/zuki-themes"
+  when: not has_zuki.stat.exists
+    

@@ -1,7 +1,0 @@
-
-  - name: Install gnome-tweaks
-    become: yes
-    apt: 
-      name: gnome-tweaks
-      state: present
-      autoclean: yes

@@ -1,11 +1,11 @@
 - name: Clone dotfiles
   git:
     repo: "git@github.com/besnef/dotfiles.git"
-    dest: "{{ local_home }}/dotfiles"
+    dest: "{{ local_repo_dir }}/dotfiles"
     update: no
 
 - name: Run DotBot install 
   shell: 
     cmd: ./install
-    chdir: "{{ local_home }}/dotfiles"
+    chdir: "{{ local_repo_dir }}/dotfiles"
 
