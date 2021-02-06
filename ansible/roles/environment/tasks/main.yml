@@ -16,5 +16,7 @@
         - ffmpeg
         - openvpn
         - network-manager-openvpn-gnome
+        - remmina
+        - openssh-server
       state: present
       autoclean: yes
