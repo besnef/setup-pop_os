@@ -19,7 +19,7 @@
     - {role: guake, tags: 'guake'}
     - {role: chrome, tags: 'chrome'}
     - {role: torbrowser, tags: 'tor'}
-    - {role: deluge, tags: 'deluge'}
+    - {role: deluge-legacy, tags: 'deluge'}
     - {role: vscode, tags: 'vscode'}
     - {role: calibre, tags: 'calibre'}
     - {role: mcomix, tags: 'mcomix'}
