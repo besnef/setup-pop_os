@@ -10,8 +10,8 @@
 
   roles:
     - {role: environment, tags: 'env'}
-    - {role: dotfiles, tags: 'dotfiles'}
     - {role: github, tags: 'github'}
+    - {role: dotfiles, tags: 'dotfiles'}
     - {role: zsh, tags: 'zsh'}
     - {role: vim, tags: 'vim'}
     - {role: jaredhocutt.gnome_extensions, tags: 'gnome'}

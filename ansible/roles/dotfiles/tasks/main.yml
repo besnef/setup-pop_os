@@ -1,7 +1,8 @@
 - name: Clone dotfiles
   git:
-    repo: "git@github.com/besnef/dotfiles.git"
+    repo: "git@github.com:besnef/dotfiles.git"
     dest: "{{ local_repo_dir }}/dotfiles"
+    accept_hostkey: yes
     update: no
 
 - name: Run DotBot install 
