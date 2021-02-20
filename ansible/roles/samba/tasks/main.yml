@@ -1,0 +1,58 @@
+- name: Install Samba
+  become: yes
+  apt: 
+    name: 
+      - samba
+      - nautilus-share
+    state: present
+    autoclean: yes
+
+- name: Add {{ local_user }} to sambashare group
+  become: yes
+  user: 
+    name: "{{ local_user }}"
+    groups: sambashare
+    append: yes
+      
+
+- name: Create Usershares
+  become: yes
+  command: net usershare add "{{ item.name }}" "{{ item.path }}" "" Everyone:F guest_ok=y
+  with_items:
+    - { name: Andronicus, path: /home/besnef/Public/Video }
+    - { name: Gradok, path: /mnt/gradok/Share }
+    - { name: Jiangyin, path: /mnt/jiangyin/Share }
+    - { name: Music, path: /home/besnef/Music }
+    - { name: "Spoken Word", path: /home/besnef/Public/Spoken Word }
+    - { name: Vadim, path: /mnt/vadim/Share }
+  when: local_machine == "klaus" or item.name == "Music"
+
+  #template:
+  #  src: usershare.j2
+  #  dest: "/var/lib/samba/usershares/{{ item.name | lower }}"
+
+- name: import wsdd repository key
+  become: yes
+  apt_key:
+    url: https://pkg.ltec.ch/public/conf/ltec-ag.gpg.key
+    state: present
+
+- name: install wsdd repository
+  become: yes
+  apt_repository:
+    repo: deb https://pkg.ltec.ch/public/ focal main
+    state: present
+
+- name: install wsdd
+  become: yes
+  apt:
+    name: wsdd
+    update_cache: yes
+    state: latest
+
+- name: enable and start wsdd
+  become: yes
+  ansible.builtin.service:
+    name: wsdd
+    enabled: yes
+    state: started

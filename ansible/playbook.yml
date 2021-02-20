@@ -23,4 +23,6 @@
     - {role: vscode, tags: 'vscode'}
     - {role: calibre, tags: 'calibre'}
     - {role: mcomix, tags: 'mcomix'}
+    - {role: wine, tags: 'wine'}
+    - {role: samba, tags: 'samba'}
 

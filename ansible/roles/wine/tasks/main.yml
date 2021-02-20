@@ -1,0 +1,23 @@
+- name: Enable i386 architecture
+  command: dpkg --add-architecture i386
+  become: yes
+
+- name: Import Wine Repository Key
+  apt_key:
+    url: https://dl.winehq.org/wine-builds/winehq.key
+    state: present
+  become: yes
+  
+- name: Install Wine Repository
+  apt_repository:
+    repo: deb https://dl.winehq.org/wine-builds/ubuntu/ groovy main
+    state: present
+  become: yes
+
+- name: Install Wine
+  apt:
+    name: winehq-stable
+    install_recommends: yes
+    update_cache: yes
+    state: latest
+  become: yes
