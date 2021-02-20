@@ -10,6 +10,7 @@
 
   roles:
     - {role: environment, tags: 'env'}
+    - {role: mount, tags: 'mount'}
     - {role: github, tags: 'github'}
     - {role: dotfiles, tags: 'dotfiles'}
     - {role: zsh, tags: 'zsh'}
