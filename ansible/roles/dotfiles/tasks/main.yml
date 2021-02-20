@@ -6,6 +6,6 @@
 
 - name: Run DotBot install 
   shell: 
-    cmd: ./install
+    cmd: ./install home
     chdir: "{{ local_repo_dir }}/dotfiles"
 
